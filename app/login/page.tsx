@@ -11,17 +11,17 @@ export default function Login({
 }) {
   const signIn = async (formData: FormData) => {
     "use server";
-
+    console.log(formData);
     const email = formData.get("email") as string;
     const password = formData.get("password") as string;
     const supabase = createClient();
-
     const { error } = await supabase.auth.signInWithPassword({
       email,
       password,
     });
 
     if (error) {
+      console.log(error);
       return redirect("/login?message=Could not authenticate user");
     }
 
@@ -30,7 +30,7 @@ export default function Login({
 
   const signUp = async (formData: FormData) => {
     "use server";
-
+    console.log(formData, "SIGN UP");
     const origin = headers().get("origin");
     const email = formData.get("email") as string;
     const password = formData.get("password") as string;
@@ -45,6 +45,7 @@ export default function Login({
     });
 
     if (error) {
+      console.log(error);
       return redirect("/login?message=Could not authenticate user");
     }
 
