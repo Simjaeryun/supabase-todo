@@ -13,9 +13,9 @@ export default function EditDrawer(param: {
     console.log(titleRef.current?.value);
     const supabase = createClient();
     const { data, error } = await supabase
-      .from("todoList")
+      .from("todos")
       .update({
-        updated_at: new Date().toISOString(),
+        update_dt: new Date().toISOString(),
         title: titleRef.current?.value,
         description: descRef.current?.value,
       })

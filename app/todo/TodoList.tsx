@@ -4,6 +4,7 @@ import { AgGrid } from "@/components/AgGrid";
 import { createClient } from "@/utils/supabase/client";
 import { useRouter } from "next/navigation";
 import EditDrawer from "./EditDrawer";
+import { Database } from "@/types/supabase";
 const COLUMN = [
   {
     field: "title",
@@ -31,24 +32,13 @@ const COLUMN = [
 export default function ToDoList({
   todoList,
 }: {
-  todoList?:
-    | {
-        title: string;
-        description: string;
-        create_at: string;
-        update_at: string;
-        id: number;
-        del_yn: boolean;
-        user_id: string;
-      }[]
-    | null;
+  todoList: Database["public"]["Tables"]["todos"]["Row"][] | null;
 }) {
   const router = useRouter();
   const onDeleteRow = async (id: number) => {
-    console.log("delete");
     const supabase = createClient();
     const { data, error } = await supabase
-      .from("todoList")
+      .from("todos")
       .update({ del_yn: "Y" })
       .eq("id", id);
     if (error) {

@@ -13,12 +13,12 @@ export default function InputFormWithSupabase() {
     ("use server");
     const supabase = createClient();
     const { data, error } = await supabase
-      .from("todoList")
+      .from("todos")
       .insert([{ title, description, del_yn: "N" }]);
     if (error) {
       console.error(error);
     }
-    console.log(data);
+
     setTitle("");
     setDescription("");
     router.refresh();

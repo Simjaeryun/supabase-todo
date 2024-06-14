@@ -3,6 +3,7 @@ import { headers } from "next/headers";
 import { createClient } from "@/utils/supabase/server";
 import { redirect } from "next/navigation";
 import { SubmitButton } from "./submit-button";
+import KakaoLoginBtn from "./KakaoLoginBtn";
 
 export default function Login({
   searchParams,
@@ -11,7 +12,7 @@ export default function Login({
 }) {
   const signIn = async (formData: FormData) => {
     "use server";
-    console.log(formData);
+
     const email = formData.get("email") as string;
     const password = formData.get("password") as string;
     const supabase = createClient();
@@ -109,6 +110,7 @@ export default function Login({
         >
           Sign Up
         </SubmitButton>
+        <KakaoLoginBtn />
         {searchParams?.message && (
           <p className="mt-4 p-4 bg-foreground/10 text-foreground text-center">
             {searchParams.message}
